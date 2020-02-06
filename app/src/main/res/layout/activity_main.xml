@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/LL_dice_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="222dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_dice1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/desc">
+        </ImageView>
+        <ImageView
+            android:id="@+id/iv_dice2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/desc">
+        </ImageView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_roll_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginEnd="10sp"
+        android:layout_alignBottom="@+id/LL_dice_container"
+        android:text="@string/roll"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id="@+id/tv_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+
+</RelativeLayout>
