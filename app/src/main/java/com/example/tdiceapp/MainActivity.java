@@ -34,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void rollFirstDie() {
+    private void rollDice(){
+        rollFirstDie();
         rollSecondDie();
-        int firstRoll = rng.nextInt(6) + 1;
-        switch (firstRoll)
+    }
+    private int rollFirstDie() {
+        int firstDieResult = rng.nextInt(6) + 1;
+        switch (firstDieResult)
         {
             case 1:
                 dice1.setImageResource(R.drawable.one);
@@ -59,11 +61,12 @@ public class MainActivity extends AppCompatActivity {
                 dice1.setImageResource(R.drawable.six);
                 break;
         }
+        return firstDieResult;
     }
 
-    private void rollSecondDie() {
-        int secondRoll = rng.nextInt(6) + 1;
-        switch (secondRoll)
+    private int rollSecondDie() {
+        int secondDieResult = rng.nextInt(6) + 1;
+        switch (secondDieResult)
         {
             case 1:
                 dice2.setImageResource(R.drawable.one);
@@ -84,6 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 dice2.setImageResource(R.drawable.six);
                 break;
         }
-
+        return secondDieResult;
     }
 }
