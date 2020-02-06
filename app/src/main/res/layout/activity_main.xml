@@ -40,10 +40,26 @@
         android:layout_alignBottom="@+id/LL_dice_container"
         android:text="@string/roll"
         android:layout_centerHorizontal="true"/>
+
     <TextView
-        android:id="@+id/tv_history"
+        android:id="@+id/tv_history_title"
+        android:layout_below="@+id/btn_roll_dice"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55sp"
+        android:layout_marginTop="40sp"
+        android:text="@string/history_title">
     </TextView>
+
+    <ListView
+        android:id="@+id/lv_history_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_history_title"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="55sp"
+        android:layout_marginEnd="55sp"
+        android:layout_marginBottom="20sp">
+    </ListView>
 
 </RelativeLayout>
