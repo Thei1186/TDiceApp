@@ -3,5 +3,16 @@
     <string name="roll">Roll</string>
     <string name="desc">Image of a dice</string>
     <string name="history_title">History</string>
+    <string name="clear">Clear</string>
+    <string name="spn_no_choice">You need to make a selection first</string>
 
+    <string-array name="dice_options">
+        <item>Select a number of dice</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 </resources>

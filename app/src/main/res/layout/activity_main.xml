@@ -18,39 +18,57 @@
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/iv_dice1"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:contentDescription="@string/desc">
         </ImageView>
         <ImageView
             android:id="@+id/iv_dice2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:contentDescription="@string/desc">
         </ImageView>
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spn_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5sp"
+        android:layout_below="@id/LL_dice_container">
+    </Spinner>
 
     <Button
         android:id="@+id/btn_roll_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10sp"
+        android:layout_marginStart="110sp"
         android:layout_marginTop="5sp"
         android:layout_marginEnd="10sp"
-        android:layout_below="@+id/LL_dice_container"
-        android:text="@string/roll"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/spn_dice"
+        android:text="@string/roll" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:text="@string/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/btn_roll_dice"
+        android:layout_below="@id/spn_dice"
+        android:layout_marginTop="5sp">
+
+    </Button>
 
     <TextView
         android:id="@+id/tv_history_title"
         android:layout_below="@+id/btn_roll_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55sp"
+        android:layout_marginStart="60sp"
         android:layout_marginTop="15sp"
         android:text="@string/history_title">
     </TextView>
-
     <ListView
         android:id="@+id/lv_history_content"
         android:layout_width="wrap_content"

@@ -3,14 +3,18 @@ package com.example.tdiceapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,113 +22,168 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    Button btn_roll;
-    LinearLayout dice_container;
-    ImageView dice1, dice2;
+    Button rollButton, clearButton;
+    LinearLayout diceContainer;
+
     Random rng;
-    List<String>history_list;
-    ListView lv_history_content;
-    ArrayAdapter<String> adapter;
+    Spinner spnDiceQuantity;
+    ListView historyContent;
+    ArrayAdapter<String> string_adapter, diceAdapter;
+    int selection;
+
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rng = new Random();
-        history_list = new ArrayList<>();
 
-        lv_history_content = findViewById(R.id.lv_history_content);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        lv_history_content.setAdapter(adapter);
+        diceContainer = findViewById(R.id.LL_dice_container);
+
+        spnDiceQuantity = findViewById(R.id.spn_dice);
+        diceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.dice_options));
+        diceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDiceQuantity.setAdapter(diceAdapter);
+        spnDiceQuantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               getSelection(diceContainer);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        historyContent = findViewById(R.id.lv_history_content);
+        string_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        historyContent.setAdapter(string_adapter);
 
 
-        dice1 = findViewById(R.id.iv_dice1);
-        dice2 = findViewById(R.id.iv_dice2);
-        dice1.setImageResource(R.drawable.one);
-        dice2.setImageResource(R.drawable.two);
-        dice_container = findViewById(R.id.LL_dice_container);
-        btn_roll = findViewById(R.id.btn_roll_dice);
-        btn_roll.setOnClickListener(new View.OnClickListener() {
+        rollButton = findViewById(R.id.btn_roll_dice);
+        rollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rollDice();
             }
         });
+        clearButton = findViewById(R.id.btn_clear);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearHistory();
+            }
+        });
     }
 
-
-    private void rollDice(){
-        int die_1_result = rollFirstDie();
-        int die_2_result = rollSecondDie();
-
-        createHistory(die_1_result, die_2_result);
-
+    private void getSelection(LinearLayout container) {
+        diceContainer.removeAllViews();
+        if (spnDiceQuantity.getSelectedItemPosition() != 0)
+        {
+            selection = Integer.parseInt((String) spnDiceQuantity.getSelectedItem());
+            createDice(container, selection);
+        }
     }
 
-    private void createHistory(int die_1_result, int die_2_result) {
-        if (adapter.getCount() >= 5)
+    private void createDice(LinearLayout container, int selection) {
+        while (!(selection <= 0 ))
+        {
+            ImageView image = new ImageView(this);
+            image.setLayoutParams(new android.view.ViewGroup.LayoutParams(150,150));
+            switch (selection)
+            {
+                case 1:
+                    image.setImageResource(R.drawable.one);
+                    break;
+                case 2:
+                    image.setImageResource(R.drawable.two);
+                    break;
+                case 3:
+                    image.setImageResource(R.drawable.three);
+                    break;
+                case 4:
+                    image.setImageResource(R.drawable.four);
+                    break;
+                case 5:
+                    image.setImageResource(R.drawable.five);
+                    break;
+                case 6:
+                    image.setImageResource(R.drawable.six);
+                    break;
+            }
+            image.setId(selection);
+            container.addView(image);
+            selection--;
+        };
+    }
+
+    private void rollDice()
+    {
+        if (spnDiceQuantity.getSelectedItemPosition() == 0)
+        {
+            Toast.makeText(this, R.string.spn_no_choice, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        StringBuilder history = new StringBuilder();
+        for (int i = 0; i < diceContainer.getChildCount(); i++)
+        {
+            int dieResult = rng.nextInt(6) + 1;
+            ImageView currentDie =(ImageView) diceContainer.getChildAt(i);
+            if (currentDie != null)
+            {
+                setDieImage(dieResult, currentDie);
+            }
+            history.append(dieResult);
+            if(i != diceContainer.getChildCount() - 1)
+            {
+                history.append(" | ");
+            }
+        }
+            createHistory(history.toString());
+    }
+
+    private void createHistory(String results) {
+        if (string_adapter.getCount() >= 5)
         {
             clearHistory();
         }
         count++;
-        adapter.add(count + ": " + die_1_result + " - " + die_2_result);
+        string_adapter.add(count + ": " + results);
 
     }
 
     private void clearHistory() {
-         adapter.clear();
+        if (count % 5 > 0)
+        {
+            count = 0;
+        }
+         string_adapter.clear();
     }
 
-    private int rollFirstDie() {
-        int firstDieResult = rng.nextInt(6) + 1;
-        switch (firstDieResult)
+    private void setDieImage(int result, ImageView view)
+    {
+        switch (result)
         {
             case 1:
-                dice1.setImageResource(R.drawable.one);
+                view.setImageResource(R.drawable.one);
                 break;
             case 2:
-                dice1.setImageResource(R.drawable.two);
+                view.setImageResource(R.drawable.two);
                 break;
             case 3:
-                dice1.setImageResource(R.drawable.three);
+                view.setImageResource(R.drawable.three);
                 break;
             case 4:
-                dice1.setImageResource(R.drawable.four);
+                view.setImageResource(R.drawable.four);
                 break;
             case 5:
-                dice1.setImageResource(R.drawable.five);
+                view.setImageResource(R.drawable.five);
                 break;
             case 6:
-                dice1.setImageResource(R.drawable.six);
+                view.setImageResource(R.drawable.six);
                 break;
         }
-        return firstDieResult;
-    }
-
-    private int rollSecondDie() {
-        int secondDieResult = rng.nextInt(6) + 1;
-        switch (secondDieResult)
-        {
-            case 1:
-                dice2.setImageResource(R.drawable.one);
-                break;
-            case 2:
-                dice2.setImageResource(R.drawable.two);
-                break;
-            case 3:
-                dice2.setImageResource(R.drawable.three);
-                break;
-            case 4:
-                dice2.setImageResource(R.drawable.four);
-                break;
-            case 5:
-                dice2.setImageResource(R.drawable.five);
-                break;
-            case 6:
-                dice2.setImageResource(R.drawable.six);
-                break;
-        }
-        return secondDieResult;
     }
 
 }
