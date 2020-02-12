@@ -126,20 +126,32 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         StringBuilder history = new StringBuilder();
+
+        //Grabs hold of the LinearLayout's children and throws for each
         for (int i = 0; i < diceContainer.getChildCount(); i++)
         {
+            //The toss
             int dieResult = rng.nextInt(6) + 1;
+
+            //The current die that was tossed
             ImageView currentDie =(ImageView) diceContainer.getChildAt(i);
+
             if (currentDie != null)
             {
+                //Sets the matching image to the die
                 setDieImage(dieResult, currentDie);
             }
+
+            //Adds the result to the history string
             history.append(dieResult);
+
+
             if(i != diceContainer.getChildCount() - 1)
             {
                 history.append(" | ");
             }
         }
+
             createHistory(history.toString());
     }
 
