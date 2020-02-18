@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     ListView historyContent;
     ArrayAdapter<String> string_adapter, diceAdapter;
     int selection;
-
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
         rng = new Random();
 
         diceContainer = findViewById(R.id.LL_dice_container);
-
         spnDiceQuantity = findViewById(R.id.spn_dice);
-        diceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, getResources().getStringArray(R.array.dice_options));
+
+        diceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1,
+                getResources().getStringArray(R.array.dice_options));
         diceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDiceQuantity.setAdapter(diceAdapter);
         spnDiceQuantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
