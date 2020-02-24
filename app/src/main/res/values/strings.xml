@@ -5,7 +5,8 @@
     <string name="history_title">History</string>
     <string name="clear">Clear</string>
     <string name="spn_no_choice">You need to make a selection first</string>
-    <string name="back">back</string>
+    <string name="back">Back</string>
+    <string name="history">History</string>
 
     <string-array name="dice_options">
         <item>Select a number of dice</item>

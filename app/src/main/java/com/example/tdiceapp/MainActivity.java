@@ -3,6 +3,7 @@ package com.example.tdiceapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         diceContainer = findViewById(R.id.LL_dice_container);
         spnDiceQuantity = findViewById(R.id.spn_dice);
 
+        Button btnHistory = findViewById(R.id.btn_history);
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHistory();
+            }
+        });
+
         diceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1,
                 getResources().getStringArray(R.array.dice_options));
         diceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
                 clearHistory();
             }
         });
+    }
+
+    private void openHistory() {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        Bundle b = new Bundle();
+
+        startActivity(intent);
     }
 
     private void getSelection(LinearLayout container) {

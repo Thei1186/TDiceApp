@@ -4,20 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    ListView listHistory;
+    ArrayAdapter<String> historyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        listHistory.findViewById(R.id.lv_history_content2);
+        ListView listHistory = findViewById(R.id.lv_history_content2);
         Button backButton = findViewById(R.id.btn_back);
         Button clearButton = findViewById(R.id.btn_clear1);
+
+        historyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        listHistory.setAdapter(historyAdapter);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,8 +30,16 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearHistory();
+            }
+        });
 
+    }
 
+    private void clearHistory() {
     }
 
     private void back() {
