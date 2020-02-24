@@ -8,20 +8,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 public class HistoryActivity extends AppCompatActivity {
 
     ArrayAdapter<String> historyAdapter;
-
+    ListView listHistory;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        ListView listHistory = findViewById(R.id.lv_history_content2);
+        listHistory = findViewById(R.id.lv_history_content2);
         Button backButton = findViewById(R.id.btn_back);
         Button clearButton = findViewById(R.id.btn_clear1);
 
-        historyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        listHistory.setAdapter(historyAdapter);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +36,13 @@ public class HistoryActivity extends AppCompatActivity {
                 clearHistory();
             }
         });
+        setListview();
+    }
+
+    private void setListview() {
+        ArrayList<String> history = getIntent().getStringArrayListExtra("history");
+        historyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, history);
+        listHistory.setAdapter(historyAdapter);
 
     }
 

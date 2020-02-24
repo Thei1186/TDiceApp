@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -86,10 +87,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void openHistory() {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        Bundle b = new Bundle();
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
+    private void openHistory() {
+        Bundle b = new Bundle();
+        Intent intent = new Intent(this, HistoryActivity.class);
+
+        ArrayList<String> arrayHistory = new ArrayList<>();
+        for(int i = 0; i < string_adapter.getCount(); i++)
+        {
+            arrayHistory.add(string_adapter.getItem(i));
+        }
+        b.putStringArrayList("history", arrayHistory);
+        intent.putExtras(b);
         startActivity(intent);
     }
 
