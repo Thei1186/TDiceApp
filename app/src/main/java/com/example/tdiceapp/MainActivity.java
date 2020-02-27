@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -31,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
     Spinner spnDiceQuantity;
     ListView historyContent;
     ArrayAdapter<String> string_adapter, diceAdapter;
+    ArrayList<BEThrow> _history;
     int selection;
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        _history = new ArrayList<>();
         rng = new Random();
 
         diceContainer = findViewById(R.id.LL_dice_container);
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearHistory();
+                _history.clear();
             }
         });
     }
@@ -96,13 +99,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         Intent intent = new Intent(this, HistoryActivity.class);
 
-        ArrayList<String> arrayHistory = new ArrayList<>();
-        for(int i = 0; i < string_adapter.getCount(); i++)
-        {
-            arrayHistory.add(string_adapter.getItem(i));
-        }
-        b.putStringArrayList("history", arrayHistory);
-        intent.putExtras(b);
+        intent.putExtra("history",_history);
         startActivity(intent);
     }
 
@@ -154,7 +151,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.spn_no_choice, Toast.LENGTH_SHORT).show();
             return;
         }
-        StringBuilder history = new StringBuilder();
+        BEThrow current = new BEThrow();
+        current.time = Calendar.getInstance();
+        current.eyes = new int[diceContainer.getChildCount()];
 
         //Grabs hold of the LinearLayout's children and throws for each
         for (int i = 0; i < diceContainer.getChildCount(); i++)
@@ -172,35 +171,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             //Adds the result to the history string
-            history.append(dieResult);
+            current.eyes[i] = dieResult;
 
-
-            if(i != diceContainer.getChildCount() - 1)
-            {
-                history.append(" | ");
-            }
         }
 
-            createHistory(history.toString());
+        _history.add(current);
     }
 
-    private void createHistory(String results) {
-        if (string_adapter.getCount() >= 5)
-        {
-            clearHistory();
-        }
-        count++;
-        string_adapter.add(count + ": " + results);
-
-    }
-
-    private void clearHistory() {
-        if (count % 5 > 0)
-        {
-            count = 0;
-        }
-         string_adapter.clear();
-    }
 
     private void setDieImage(int result, ImageView view)
     {

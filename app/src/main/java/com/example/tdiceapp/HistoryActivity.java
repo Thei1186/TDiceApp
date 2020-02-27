@@ -12,8 +12,9 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    ArrayAdapter<String> historyAdapter;
+    ArrayList<BEThrow> _history;
     ListView listHistory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +41,12 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void setListview() {
-        ArrayList<String> history = getIntent().getStringArrayListExtra("history");
-        historyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, history);
+        _history = (ArrayList<BEThrow>)getIntent().getSerializableExtra("history");
+        HistoryAdapter historyAdapter = new HistoryAdapter(this, android.R.layout.simple_list_item_1, _history);
         listHistory.setAdapter(historyAdapter);
 
     }
+
 
     private void clearHistory() {
     }
