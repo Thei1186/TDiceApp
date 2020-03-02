@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity"
     android:background="@color/backgroundColor">
 
@@ -11,33 +10,32 @@
         android:id="@+id/LL_dice_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
         android:layout_margin="10sp"
-        android:layout_marginTop="10sp"
-        android:layout_marginBottom="222dp"
+        android:layout_below="@id/spn_dice"
         android:orientation="horizontal">
 
     </LinearLayout>
 
     <Spinner
         android:id="@+id/spn_dice"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5sp"
-        android:layout_below="@id/LL_dice_container">
+        android:layout_alignParentTop="true"
+        android:textColor="@color/txtColor">
     </Spinner>
 
     <Button
         android:id="@+id/btn_roll_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110sp"
         android:layout_marginTop="5sp"
         android:layout_marginEnd="10sp"
-        android:layout_below="@+id/spn_dice"
-        android:text="@string/roll" />
+        android:layout_marginStart="100dp"
+        android:background="@drawable/gradientcolor"
+        android:text="@string/roll"
+        android:layout_below="@id/LL_dice_container"
+        android:textColor="@color/txtColor" />
 
     <Button
         android:id="@+id/btn_clear"
@@ -45,8 +43,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/btn_roll_dice"
-        android:layout_below="@id/spn_dice"
-        android:layout_marginTop="5sp">
+        android:background="@drawable/gradientcolor"
+        android:layout_marginTop="5sp"
+        android:layout_below="@id/LL_dice_container"
+        android:textColor="@color/txtColor">
 
     </Button>
 
@@ -57,7 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60sp"
         android:layout_marginTop="15sp"
-        android:text="@string/history_title">
+        android:text="@string/history_title"
+        android:textColor="@color/txtColor">
     </TextView>
     <ListView
         android:id="@+id/lv_history_content"
@@ -76,6 +77,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="55sp"
+        android:background="@drawable/gradientcolor"
+        android:textColor="@color/txtColor"
         />
 
 </RelativeLayout>
