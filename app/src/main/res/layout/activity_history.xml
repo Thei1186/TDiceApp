@@ -4,19 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HistoryActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backgroundColor">
 <ListView
     android:id="@+id/lv_history_content2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_above="@id/btn_back">
+    android:layout_above="@id/llbtn"
+    android:layout_alignParentTop="true"
+    >
 </ListView>
+    <LinearLayout
+        android:id="@+id/llbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1.0"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
     <Button
         android:id="@+id/btn_back"
         android:text="@string/back"
-        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight=".5">
     </Button>
 
     <Button
@@ -24,7 +34,7 @@
         android:text="@string/clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/btn_back"
-        android:layout_alignParentBottom="true">
+        android:layout_weight=".5">
     </Button>
+    </LinearLayout>
 </RelativeLayout>
