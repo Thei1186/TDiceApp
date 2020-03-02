@@ -2,9 +2,7 @@ package com.example.tdiceapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     Random rng;
     Spinner spnDiceQuantity;
     ListView historyContent;
-    ArrayAdapter<String> string_adapter, diceAdapter;
+    ArrayAdapter<String> diceAdapter;
+    ArrayAdapter<BEThrow> _historyAdapter;
     ArrayList<BEThrow> _history;
     int selection;
     int count;
@@ -70,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         historyContent = findViewById(R.id.lv_history_content);
-        string_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        historyContent.setAdapter(string_adapter);
+        _historyAdapter = new HistoryAdapter(this, android.R.layout.simple_list_item_1, _history);
+        historyContent.setAdapter(_historyAdapter);
 
 
         rollButton = findViewById(R.id.btn_roll_dice);
@@ -96,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openHistory() {
-        Bundle b = new Bundle();
         Intent intent = new Intent(this, HistoryActivity.class);
 
         intent.putExtra("history",_history);
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         while (!(selection <= 0 ))
         {
             ImageView image = new ImageView(this);
-            image.setLayoutParams(new android.view.ViewGroup.LayoutParams(150,150));
+
             switch (selection)
             {
                 case 1:
