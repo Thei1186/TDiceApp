@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
     ListView historyContent;
     ArrayAdapter<String> diceAdapter;
     ArrayAdapter<BEThrow> _historyAdapter;
-    ArrayList<BEThrow> _history;
+    ArrayList<BEThrow> _history, _latestHistory;
     int selection;
-    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         _history = new ArrayList<>();
+        _latestHistory = new ArrayList<>();
         rng = new Random();
 
         diceContainer = findViewById(R.id.LL_dice_container);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         historyContent = findViewById(R.id.lv_history_content);
-        _historyAdapter = new HistoryAdapter(this, android.R.layout.simple_list_item_1, _history);
+        _historyAdapter = new HistoryAdapter(this, android.R.layout.simple_list_item_1, _latestHistory);
         historyContent.setAdapter(_historyAdapter);
 
 
@@ -176,7 +176,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        _history.add(current);
+        _latestHistory.add(0, current);
+        if (_latestHistory.size() >= 6) {
+            _latestHistory.remove(_latestHistory.size()-1);
+        }
+
     }
 
 
