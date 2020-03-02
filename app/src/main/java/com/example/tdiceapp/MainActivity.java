@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        diceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1,
+        diceAdapter = new ArrayAdapter<>(this, R.layout.spinner_item,
                 getResources().getStringArray(R.array.dice_options));
-        diceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDiceQuantity.setAdapter(diceAdapter);
         spnDiceQuantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
