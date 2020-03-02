@@ -9,11 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -45,12 +41,14 @@ public class HistoryAdapter extends ArrayAdapter<BEThrow> {
         v.setBackgroundColor(colours[position % colours.length]);
 
         BEThrow t = historyList.get(position);
-        TextView index = v.findViewById(R.id.tv_history_index);
+        TextView timestamp = v.findViewById(R.id.tv_history_timestamp);
         LinearLayout historyDice = v.findViewById(R.id.ll_history_dice);
         historyDice.removeAllViews();
         for (int i=0; i < t.eyes.length; i++)
+        {
             historyDice.addView( getDieImage(t.eyes[i]));
-        index.setText("" + (1+position) );
+        }
+        timestamp.setText("" + t.time.getTime());
 
         return v;
     }
@@ -82,30 +80,4 @@ public class HistoryAdapter extends ArrayAdapter<BEThrow> {
         return res;
     }
 
-   /* private ImageView setDieImage(Context context, int result)
-    {
-        ImageView view = new ImageView(context);
-        switch (result)
-        {
-            case 1:
-                view.setImageResource(R.drawable.one);
-                break;
-            case 2:
-                view.setImageResource(R.drawable.two);
-                break;
-            case 3:
-                view.setImageResource(R.drawable.three);
-                break;
-            case 4:
-                view.setImageResource(R.drawable.four);
-                break;
-            case 5:
-                view.setImageResource(R.drawable.five);
-                break;
-            case 6:
-                view.setImageResource(R.drawable.six);
-                break;
-        }
-        return view;
-    } */
 }

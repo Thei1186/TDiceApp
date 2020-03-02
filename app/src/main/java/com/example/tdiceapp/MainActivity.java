@@ -91,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void openHistory() {
         Intent intent = new Intent(this, HistoryActivity.class);
 
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             createDice(container, selection);
         }
     }
+
 
     private void createDice(LinearLayout container, int selection) {
         while (!(selection <= 0 ))

@@ -54,4 +54,14 @@ public class HistoryActivity extends AppCompatActivity {
     private void back() {
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }
